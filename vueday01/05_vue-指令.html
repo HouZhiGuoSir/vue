@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 200px;
+				height: 200px;
+				background: red;
+			}
+		</style>
+		<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- v-指令名称  绑定至对应的dom -->
+			<!-- v-bind指令 向元素添加对应的属性 -->
+			<!-- 注意：属性值若不加单引号，会认为是data初始化的变量，作为变量被解析 -->
+			<!-- <div v-bind:class="box" v-bind:diy="'xxx'"></div> -->
+			<!-- <img src="1.jpg" alt=""> -->
+			<!-- <img v-bind:src="imgUrl" alt=""> -->
+			<!-- <a v-bind:href=""></a> -->
+			<!-- v-bind:属性 简写  :属性 -->
+			<!-- <div :class="box" class></div> -->
+			
+			<!-- v-on指令 绑定事件 -->
+			<!-- <p>{{num}}</p> -->
+			<!-- <button v-on:click="add">+1</button> -->
+			<!-- <button @click="add">+1</button> -->
+			<!-- v-on:事件  =》  @事件 -->
+			
+			<!-- v-show 控制元素显示隐藏  控制元素的display属性实现显示隐藏 -->
+			<!-- <div v-show="true">显示与否</div> -->
+			<!-- <div v-show="num==1">num=1</div> -->
+			<!-- <div v-show="num==2">num=2</div> -->
+			
+			<!-- v-if v-else-if v-else   控制元素的渲染   通过控制元素的解析状态来实现显示隐藏 -->
+			<!-- <div v-if="num==1">她爱我</div> -->
+			<!-- <div v-else-if="num==2">她不爱我  {{fn()}}</div> -->
+			<!-- <div v-else>她爱不爱我</div> -->
+			<!-- 用于页面初始化  当页面请求成功时再渲染页面 -->
+			<div v-if="obj.user">
+				<p>姓名：{{obj.user.name}}</p>
+				<p>年龄：{{obj.user.age}}</p>
+			</div>
+			<div v-else>加载中...</div>
+			
+			<!-- v-for指令 列表渲染 -->
+			<ul>
+				<!-- <li v-for="(item,index) in arr">
+					<p>键值{{item}}</p>
+					<p>键名{{index}}</p>
+				</li> -->
+				<!-- <li v-for="(item,index) in o">
+					<p>键值{{item}}</p>
+					<p>键名{{index}}</p>
+				</li> -->
+				<!-- <li v-for="(item,index) in count">
+					<p>键值{{item}}</p>
+					<p>键名{{index}}</p>
+				</li> -->
+			</ul>
+			
+			<!-- 添加行内样式 -->
+			<!-- <div :style="style1">内容</div> -->
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				box:"box",
+				imgUrl:"1.jpg",
+				num:1,
+				obj:{},
+				style1:{
+					background:"red",
+					color:"green",
+					width:"200px",
+					height:"200px",
+					fontSize:"50px",
+					"margin-left":"200px"
+				},
+				count:10,
+				arr:[1,2,3,4,5],
+				o:{
+					name:"lee",
+					age:18
+				},
+				arr2:[{
+					name:"zhang",
+					age:20
+				},{
+					name:"lee",
+					age:30
+				}]
+			},
+			methods:{
+				add(){
+					this.num = this.num+1;
+				},
+				fn(){
+					console.log("run")
+				}
+			}
+			
+		})
+		setTimeout(()=>{
+			vm.obj = {
+				user:{
+					name:"lee",
+					age:18
+				}
+			}
+		},1000)
+	</script>
+</html>

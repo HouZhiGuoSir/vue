@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				num:1
+			},
+			//放置页面事件处理函数
+			methods:{
+				fn(){
+					console.log(this);//指向当前vue实例
+					// this.num
+				}
+			}
+		})
+		console.log(vm.fn())
+	</script>
+</html>

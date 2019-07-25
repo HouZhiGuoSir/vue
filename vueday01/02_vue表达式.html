@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 
+				表达式中支持以下语法
+				1、运算符操作
+				2、支持js中的数据操作方法
+			 -->
+			{{1+1}}
+			{{[1,2,3,4,5].splice(0,2)}}
+			{{arr.splice(0,2)}}
+		</div>
+		<div>
+			{{1+1}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		const num = 1;
+		const arr = [1,2,3,4];
+		let vm = new Vue({
+			el:"#app",//指定vm实例绑定的元素,在该元素内部会通过vue进行代码编译;
+		})
+		console.log(vm)
+	</script>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			{{num}}
+			<!-- {{a}} -->
+		</div>
+	</body>
+	<script type="text/javascript">
+		// const a = 20;
+		let vm = new Vue({
+			el:"#app",
+			//data等同于react中的state;
+			//用于初始化页面中所绑定的数据;
+			data:{
+				num:1,
+				arr:[1,2,3],
+				obj:{
+					name:"xxx"
+				},
+				// fn(){}
+			}
+		})
+		console.log(vm)
+	</script>
+</html>

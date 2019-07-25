@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- v-model 仅允许绑定到表单控件中，在不同类型的输入框有不同的体现 -->
+			<!-- 绑定在文本框时，v-model用来设置或获取输入框的value值 -->
+			<!-- <input type="text" v-model="val1" />{{val1}} 
+			<textarea v-model="val1">
+				
+			</textarea> -->
+			
+			<!-- 绑定在单选框  同组单选框v-model绑定同一属性  属性值为选中状态的单选框的value值-->
+			<input type="radio" v-model="val2" name="sex" value="boy">男
+			<input type="radio" v-model="val2" name="sex" value="girl">女 
+			<br>{{val2}}
+			<!-- 绑定在多选框时 v-model 初始化的值为bol值时，会影响所有复选框的选中状态
+				初始化的值为数组时，会将选中的复选框的value值推入到数组中
+			 -->
+			<br>
+			<!-- <input type="checkbox" v-model="val3" value="1">
+			<input type="checkbox" v-model="val3" value="2">
+			<input type="checkbox" v-model="val3" value="3">
+			<input type="checkbox" v-model="val3" value="4">
+			<input type="checkbox" v-model="val3" value="5"> -->
+			<input v-for="(item,index) in valArr" type="checkbox" v-model="val3" :value="item">
+			<button @click="all">全选</button>
+			<button @click="toggleChoose">反选</button>
+			<button @click="noChoose">全不选</button>
+			<br>{{val3}}
+		</div>
+	</body>
+	<script type="text/javascript">
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				val1:"",
+				val2:"boy",
+				val3:[],
+				valArr:[1,2,3,4,5]
+			},
+			methods:{
+				all(){
+					this.val3 = this.valArr.slice(0);
+				},
+				toggleChoose(){
+					this.val3 = this.valArr.filter((item,index)=>{
+						return !this.val3.includes(item)
+					})
+				},
+				noChoose(){
+					this.val3 = []
+				}
+			}
+		})
+	</script>
+</html>

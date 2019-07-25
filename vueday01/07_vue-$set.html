@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="change">arr[0] = 10</button>
+			<ul>
+				<li v-for="item in arr">{{item}}</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				arr:[1,2,3,4,5],
+				obj:{
+					name:"lee"
+				}
+			},
+			methods:{
+				change(){
+					// 手动触发虚拟dom的更新
+					// this.$set(target,key,value)
+					// this.$set(this.arr,0,10);
+// 					this.$set(this.obj,"name","zhang")
+// 					this.arr[0]=10;
+// 					this.arr = this.arr.slice(0)
+				}
+			}
+		})
+	</script>
+</html>
