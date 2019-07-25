@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div v-drag="bol" :style="{
+				width:'200px',
+				height:'200px',
+				background:'red',
+				position:'absolute'
+			}"></div>
+			<div v-drag="bol" :style="{
+				width:'200px',
+				height:'200px',
+				background:'red',
+				position:'absolute'
+			}"></div>
+			<div v-drag="bol" :style="{
+				width:'200px',
+				height:'200px',
+				background:'red',
+				position:'absolute'
+			}"></div>
+			<div v-drag="bol" :style="{
+				width:'200px',
+				height:'200px',
+				background:'red',
+				position:'absolute'
+			}"></div>
+			<div v-drag="bol" :style="{
+				width:'200px',
+				height:'200px',
+				background:'red',
+				position:'absolute'
+			}"></div>
+			<!-- <ul> -->
+				<!-- <li v-for=""></li> -->
+				<button @click="fn"></button>
+				<input v-focus="bol" type="text">
+			<!-- </ul> -->
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				bol:true
+			},
+			methods:{
+				fn(){
+					this.bol = !this.bol;
+				}
+			},
+			// 注册自定义指令   局部;
+			directives:{
+				//键名自定义指令名称  不需要加v-前缀
+				//完成vue的内置指令不能完成的dom操作
+				focus:{
+					//自定义指令中的钩子函数   指令被绑定到元素时触发
+					bind(el,attr,options){
+						// console.log(el)
+						el.focus()
+					},
+					//指令值发生修改时触发
+					update(el,attr,options){
+						console.log(el,attr,options)
+					},
+					//指令被移除时触发
+					unbind(){
+						
+					}
+				},
+				drag:{
+					bind(el,attr){
+						if(attr.value){
+							el.onmousedown=function(){
+								window.onmousemove = function(ev){
+									el.style.left = ev.clientX+"px";
+									el.style.top = ev.clientY+"px";
+								}
+							}
+							el.onmouseup = function(){
+								window.onmousemove = null;
+							}
+						}
+					},
+					update(el,attr){
+						if(attr.value){
+							el.onmousedown=function(){
+								window.onmousemove = function(ev){
+									el.style.left = ev.clientX+"px";
+									el.style.top = ev.clientY+"px";
+								}
+							}
+							el.onmouseup = function(){
+								window.onmousemove = null;
+							}
+						}else{
+							el.onmousedown = null;
+						}
+					}
+				}
+			}
+			
+		})
+	</script>
+</html>

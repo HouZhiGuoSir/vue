@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{code | uppercase}}</p>
+		</div>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//全局过滤器
+		// Vue.filter(过滤器名称,()=>{过滤业务})
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				code:"asdjapdjopwdp",
+			},
+			filters:{
+				/**
+				 * 与angular区别
+				 * angular中有内置过滤器  
+				 * vue中没有内置过滤器  vue中的过滤器需要手动注册
+				 * 
+				 * angular中可以再ng-repeat指令中使用过滤器过滤数据
+				 * vue中不可以在v-for指令中使用过滤器
+				 */
+				uppercase(a,b){
+					// console.log(a,b);
+					if(b){
+						let arr = a.split("");
+						return arr.map((item,index)=>{
+							if(index<=b-1){
+								return item.toUpperCase()
+							}else{
+								return item;
+							}
+						}).join("");
+					}else{
+						return a.toUpperCase()
+					}	
+				}
+			}
+		})
+	</script>
+</html>

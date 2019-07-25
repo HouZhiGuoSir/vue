@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#app div{
+				padding: 100px;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div :style="{background:'yellow'}" @click="fn('黄')">
+				<div :style="{background:'red'}" @click.self="fn('红')">
+					<div :style="{background:'green'}" @click="fn('绿')">
+						<!-- <a href="http://www.baidu.com" @click.prevent>百度一下</a> -->
+						<!-- 
+						 .stop  阻止冒泡;  蒙板
+						 .capture 事件捕获;
+						 .prevent 阻止浏览器默认事件修饰符
+						 .once 一次性
+						 .self 作用于自身
+						 -->
+					</div>
+				</div>
+			</div>
+			<input type="text">
+		</div>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			methods:{
+				fn(a,ev){
+					alert(a)
+				},
+				keyFn(){
+					console.log("run")
+				}
+			}
+		})
+	</script>
+</html>

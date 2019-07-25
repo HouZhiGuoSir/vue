@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			img{
+				width: 500px;
+				height: 500px;
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<img v-lazy="true" _src="../day01/1.jpg" src="" alt="">
+			<img v-lazy="true" _src="../day01/1.jpg" src="" alt="">
+			<img v-lazy="true" _src="../day01/1.jpg" src="" alt="">
+			<img v-lazy="true" _src="../day01/1.jpg" src="" alt="">
+			<img v-lazy="true" _src="../day01/1.jpg" src="" alt="">
+			<img v-lazy="true" _src="../day01/1.jpg" src="" alt="">
+		</div>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//全局自定义指令注册  在实例化之前去注册  否则无法生效
+		
+		Vue.directive("lazy",{
+			bind(el,attr){
+				let src = el.getAttribute("_src");
+				let scrollFn = function(){
+					console.log(111)
+					let st = document.documentElement.scrollTop;
+					let wh = window.innerHeight;
+					let t = el.offsetTop;
+					if(st+wh>=t){
+						el.src = src;
+						el.onload = function(){
+							console.log("run")
+							window.removeEventListener("scroll",scrollFn);
+						}
+					}
+				}
+				if(attr.value){
+					window.addEventListener("scroll",scrollFn)
+				}
+			},
+			update(el,attr){
+				let src = el.getAttribute("_src");
+				let scrollFn = function(){
+					console.log(111)
+					let st = document.documentElement.scrollTop;
+					let wh = window.innerHeight;
+					let t = el.offsetTop;
+					if(st+wh>=t){
+						el.src = src;
+						el.onload = function(){
+							console.log("run")
+							window.removeEventListener("scroll",scrollFn);
+						}
+					}
+				}
+				if(attr.value){
+					window.addEventListener("scroll",scrollFn)
+				}else{
+					window.removeEventListener("scroll",scrollFn)
+				}
+			}
+		})
+		let vm = new Vue({
+			el:"#app"
+		})
+	</script>
+</html>

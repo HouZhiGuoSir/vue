@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{num}}</p>
+			<button @click="add">+1</button>
+			<select v-model="s">
+				<option v-for="item in shengArr" :value="item">{{item}}</option>
+			</select>
+			<select v-model="c">
+				<option value="">请选择</option>
+				<option v-for="item in arr" :value ="item">{{item}}</option>
+			</select>
+		</div>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				num:1,
+				shengArr:["河南省","河北省"],
+				cityArr:[{
+					s:"河南省",
+					city:["安阳市","郑州市","焦作市"]
+				},{
+					s:"河北省",
+					city:["邯郸市","保定市","廊坊市"]
+				}],
+				arr:[],
+				s:"河南省",
+				c:"安阳市"
+			},
+			methods:{
+				add(){
+					this.num = this.num+1;
+				}
+			},
+			watch:{
+				// 键名:监听的data中的某个属性名称,
+				num(nval,oval){
+					//当被监听的值发生改变时,触发
+					//在观察者中严禁修改自身,否则浏览器会崩溃;
+					// nval:为更新后的值,
+					// oval:为更新前的值;
+					console.log(nval,oval);
+				},
+				s(nval){
+					this.arr = this.cityArr.filter((item)=>{
+						return item.s == nval;
+					})[0].city.slice(0)
+					this.c = "";
+					// this.s = Math.random();
+				}
+			}
+		})
+		vm.arr = vm.cityArr[0].city.slice(0)
+	</script>
+</html>

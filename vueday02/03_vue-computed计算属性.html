@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<p>{{num}}</p>
+			<p>{{_num}}</p>
+			<button @click="add">+1</button>
+			<button @click="fn">=1</button>
+			<button @click="pushItem">push</button>
+			<ul>
+				<li v-for="item in _arr">{{item}}</li>
+			</ul>
+		</div>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				num:1,
+				count:2,
+				arr:[1,2,3,4,5,6,4,2,1,2,1,4,5,2,5,1,2]
+			},
+			methods:{
+				add(){
+					this.num = this.num+1;
+				},
+				fn(){
+					this.count = 2;
+				},
+				pushItem(){
+					let a = parseInt(Math.random()*10);
+					console.log(a)
+					this.arr.push(a);
+					this.arr = this._arr()
+				},
+				_arr(){
+					return [...new Set(this.arr)];
+				}
+			},
+			//计算属性  
+			//监听data中的某些数据的更改,一旦改变计算属性中的方法就会运行
+			//作为数据过滤器进行使用
+			//购物车商品求和
+			computed:{
+				_num(){
+					// this=>指向当前组件实例;
+					// 运行规则
+					/**
+					 * 计算属性中的方法读取到data中的变量会缓存在浏览器内存，
+					 * 每次用户ui操作之后，若操作到计算属性使用到data中的变量，
+					 * 它会自动进行比较，将缓存中的数据和操作结束后的data中的变量作比较；
+					 * 如果发生修改，那么会将修改后的值更新在缓存中，并且触发计算属性中所有使用到
+					 * data中发生改变的变量的方法
+					 * 注意：
+					 * 计算属性虽然写法为函数，但运行时当作属性去使用，所以计算属性中的方法无法设置参数
+					 */
+// 					console.log(this.num)
+// 					console.log(this.count);
+				},
+				_arr(){
+					return [...new Set(this.arr)];
+				}
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<ul>
+				<li v-for="item in shopArr">
+					<h2>商品名称：{{item.name}}</h2>
+					<h3>商品单价：{{item.price}}</h3>
+					<button @click="addShopArr(item)">加入购物车</button>
+				</li>
+			</ul>
+			<hr>
+			<div>
+				<h2 v-if="carArr.length==0">购物车空空如也，去购买</h2>
+				<ul v-else>
+					<li v-for="(item,index) in carArr">
+						<h2>商品名称：{{item.name}}</h2>
+						<h3>商品单价：{{item.price}}</h3>
+						<button @click="cut(index)">-</button><input @blur="blurFn(index)" v-model="item.count" type="text"><button @click="add(index)">+</button>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<h2>总计：{{sum}}</h2>
+			</div>
+		</div>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				shopArr:[{
+					name:"茉莉清茶",
+					price:2.5
+				},{
+					name:"茉莉蜜茶",
+					price:2.5
+				},{
+					name:"脉动",
+					price:4
+				},{
+					name:"可乐",
+					price:3
+				}],
+				carArr:[
+					{
+						name:"茉莉清茶",
+						price:2.5,
+						count:3
+					}
+				]
+			},
+			computed:{
+				sum(){
+					let sum = 0;
+					for(let i = 0 ; i < this.carArr.length ;i++){
+						sum+=this.carArr[i].price*this.carArr[i].count;
+					}
+					return sum
+				}
+			},
+			methods:{
+				addShopArr(a){
+					//判断商品是否重复
+					let currentIndex = null;
+					let bol = this.carArr.some((item,index)=>{
+						if(item.name === a.name){
+							currentIndex=index;
+							return true;
+						}else{
+							return false ;
+						}
+					})
+					if(bol){
+						this.carArr[currentIndex].count = this.carArr[currentIndex].count+1;
+						this.carArr = this.carArr.slice(0);
+					}else{
+						//Vue中的数组的方法都是通过原生映射的方法
+						this.carArr.push({
+							name:a.name,
+							price:a.price,
+							count:1
+						})
+					}
+				},
+				add(index){
+					this.carArr[index].count = this.carArr[index].count+1;
+					this.carArr = this.carArr.slice(0);
+				},
+				cut(index){
+					this.carArr[index].count = this.carArr[index].count-1;
+					if(this.carArr[index].count <=0){
+						this.carArr.splice(index,1);
+					}else{
+						this.carArr = this.carArr.slice(0);
+					}
+					
+				},
+				blurFn(index){
+					if(this.carArr[index].count<=0){
+						this.carArr.splice(index,1);
+					}
+				}
+			}
+		})
+	</script>
+</html>

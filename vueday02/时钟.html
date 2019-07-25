@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.clock{
+				width: 200px;
+				height: 200px;
+				border-radius: 100%;
+				border: 1px solid black;
+				position: relative;
+			}
+			.kedu{
+				transform-origin: 0px 100px;
+				
+				background: #000000;
+			}
+			.shuzi{
+				transform-origin: center 90px;
+			}
+			i{
+				transform-origin: center center;
+				display: inline-block;
+			}
+			.h{
+				width: 4px;
+				height: 40px;
+				background: #000000;
+				position: absolute;
+				top: 60px;
+				left: 98px;
+				transform-origin: center bottom;
+			}
+			.m{
+				width: 2px;
+				height: 55px;
+				background: #000000;
+				position: absolute;
+				top: 45px;
+				left: 99px;
+				transform-origin: center bottom;
+			}
+			.s{
+				width: 1px;
+				height: 70px;
+				background: red;
+				position: absolute;
+				top: 30px;
+				left: 99.5px;
+				transform-origin: center bottom;
+				/* transition: all 1s; */
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="clock">
+				<span class="kedu" v-for="item in 60" :style="{
+					width:'1px',
+					height:(item-1)%5==0?'8px':'5px',
+					display:'inline-block',
+					position:'absolute',
+					left:'100px',
+					top:0,
+					transform:'rotate('+6*(item-1)+'deg)'
+				}"></span>
+				<span class="shuzi" v-for="item in 12" :style="{
+					position:'absolute',
+					width:'14px',
+					fontSize:'14px',
+					left:'90px',
+					top:'10px',
+					transform:'rotate('+30*item+'deg)'
+					
+				}" >
+					<i :style="{transform:'rotate('+(-30*item)+'deg)'}">{{item}}</i>
+				</span>
+				<span class="h" :style="{
+					transform:'rotate('+(h*30+m*0.5)+'deg)'
+				}"></span>
+				<span class="m" :style="{
+					transform:'rotate('+(m*6)+'deg)'
+				}"></span>
+				<span class="s" :style="{
+					transform:'rotate('+(s*6)+'deg)'
+				}"></span>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				h:0,
+				m:0,
+				s:0
+			},
+			methods:{
+				rotateFn(){
+					let date = new Date();
+					this.h = date.getHours();
+					this.m = date.getMinutes();
+					this.s = date.getSeconds();
+					setTimeout(vm.rotateFn,1000)
+				}
+			}
+		})
+		vm.rotateFn()
+	</script>
+</html>
