@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- {{childData}} -->
+			<!-- <button @click="fn"></button> -->
+			<!-- 在调用子组件时绑定注册好的自定义事件 -->
+			<!-- <child-comp @send="getData" ></child-comp> -->
+		</div>
+		<!-- <template id="tp1">
+			<div class="childComp">
+				<h2>子组件</h2>
+				<button @click="send(msg)">发送</button>
+			</div>
+		</template> -->
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+// 		Vue.component("child-comp",{
+// 			template:"#tp1",
+// 			data(){
+// 				return {
+// 					msg:"子组件数据"
+// 				}
+// 			},
+// 			methods:{
+// 				send(a){
+// 					console.log(this);
+// 					//注册自定义事件  事件名称不要出现大写
+// 					this.$emit("send",a);
+// 				}
+// 			}
+// 		})
+// 		let vm = new Vue({
+// 			el:"#app",
+// 			data:{
+// 				childData:null
+// 			},
+// 			methods:{
+// 				getData(data){
+// 					console.log(data);
+// 					this.childData = data;
+// 				}
+// 			}
+// 		})
+	</script>
+</html>

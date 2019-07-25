@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="axios.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			mounted(){
+// 				axios({
+// 					method:"get",
+// 					url:"http://localhost:8080/cs",
+// 					params:{
+// 						name:"lee",
+// 						age:18
+// 					}
+// 				})
+// 				.then(res=>{
+// 					console.log(res);
+// 				})
+				let params = new URLSearchParams();
+				params.append("name","lee");
+				params.append("age",22);
+				axios({
+					method:"post",
+					url:"http://localhost:8080/cs",
+					data:params,
+					headers:{
+						"content-type":"application/x-www-form-urlencoded"
+					}
+				})
+				.then(res=>{
+					console.log(res)
+				})
+				// axios.get('xxxx',{xxx}).then(res=>{})
+				// axios.post("xxxx",{data:{xxxx},headers:{}}).then(res)
+			}
+		})
+	</script>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				width: 200px;
+				height: 200px;
+			}
+			.red{
+				background: red;
+			}
+			.yellow{
+				background: yellow;
+			}
+			.green{
+				background: green;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 动态组件 -->
+		<div id="app">
+			<button @click="handleClick('compRed')">红</button>
+			<button @click="handleClick('compYellow')">黄</button>
+			<button @click="handleClick('compGreen')">绿</button>
+			<!-- 动态组件 -->
+			<component :is="currentComp" :data="currentComp"></component>
+		</div>
+		<template id="tp1">
+			<div class="box red">{{data}}</div>
+		</template>
+		<template id="tp2">
+			<div class="box green">{{data}}</div>
+		</template>
+		<template id="tp3">
+			<div class="box yellow">{{data}}</div>
+		</template>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				currentComp:"compRed"
+			},
+			methods:{
+				handleClick(comp){
+					this.currentComp = comp;
+				}
+			},
+			components:{
+				compRed:{
+					template:"#tp1",
+					props:["data"]
+				},
+				compGreen:{
+					template:"#tp2",
+					props:["data"]
+				},
+				compYellow:{
+					template:"#tp3",
+					props:["data"]
+				}
+			}
+		})
+	</script>
+</html>

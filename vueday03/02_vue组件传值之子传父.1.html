@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- <button @click="aaa"></button> -->
+			<child-comp @send="getData"></child-comp>
+		</div>
+		<template id="tp1">
+			<div>
+				<h2>子组件</h2>
+				<button @click="fn(msg)">发送</button>
+			</div>
+		</template>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				child:null
+			},
+			methods:{
+				getData(data){
+					console.log(data)
+					this.child = data;
+				}
+			},
+			components:{
+				childComp:{
+					template:"#tp1",
+					data(){
+						return {
+							msg:"子数据"
+						}
+					},
+					methods:{
+						fn(a,b){
+							this.$emit("send",{name:a,age:b})
+						}
+					},
+					mounted(){
+						this.fn("张三",28)
+					}
+				}
+			}
+		})
+	</script>
+</html>

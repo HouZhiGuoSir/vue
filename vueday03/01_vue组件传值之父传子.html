@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 调用子组件 -->
+			{{msg}}
+			<!-- <p :diy="msg"></p> -->
+			<child-comp :data="msg"></child-comp>
+		</div>
+		<template id="tp1">
+			<div class="childComp">
+				<h2>子组件{{data}}</h2>
+			</div>
+		</template>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				msg:123123
+			},
+			//子组件
+			components:{
+				childComp:{
+					template:"#tp1",
+					//props对应数组时   不限制发送的数据类型
+					props:[],
+					//props对应对象时   限制发送的数据类型  若数据不在接受的数据类型限制范围内
+					//xxx must be a String but got a Number;
+					props:{
+						data:[String,Number]
+					},
+					//当组件渲染在页面时 触发mounted函数
+					mounted(){
+						console.log(this.data);
+					}
+				}
+			}
+		})
+	</script>
+</html>

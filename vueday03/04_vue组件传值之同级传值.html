@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<child-one></child-one>
+			<hr>
+			<child-two></child-two>
+		</div>
+		<template id="tp1">
+			<div class="child1">
+				<h2>子组件1</h2>
+				<p>{{msg}}</p>
+				<button @click="send">发送</button>
+			</div>
+		</template>
+		<template id="tp2">
+			<div class="child2">
+				<h2>子组件2</h2>
+				<p>子组件1的数据:{{d}}</p>
+			</div>
+		</template>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let bus = new Vue();//
+		let vm = new Vue({
+			el:"#app",
+			components:{
+				childOne:{
+					template:"#tp1",
+					data(){
+						return {
+							msg:"子组件1的数据"
+						}
+					},
+					methods:{
+						send(){
+							bus.$emit("send",this.msg);
+						}
+					}
+				},
+				childTwo:{
+					template:"#tp2",
+					data(){
+						return {
+							d:null
+						}
+					},
+					mounted() {
+						bus.$on("send",(val)=>{
+							console.log(val)
+							this.d = val;
+						})
+					}
+				}
+			}
+		})
+	</script>
+</html>
