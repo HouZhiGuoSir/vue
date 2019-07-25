@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<router-link :to="{name:'home',params:{id:123,name:'lee',age:'18',msg}}">home</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="tp1">
+			<div>
+				query:{{}}
+			</div>
+		</template>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="vue-router.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[{
+				path:"/home",
+				name:"home",
+				component:{
+					template:"#tp1",
+					created(){
+						console.log(this.$route);
+					}
+				}
+			}]
+		})
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				msg:{
+					work:"xxx"
+				}
+			},
+			router
+		})
+		/**
+		 * 刷新页面数据会丢失
+		 * 传输速度慢一些
+		 * 传输量大
+		 * 路由配置时需要name属性  router-link通过name进行路由匹配
+		 */
+	</script>
+</html>

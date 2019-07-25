@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<comp v-if="bol"></comp>
+		</div>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				bol:true
+			},
+			components:{
+				comp:{
+					template:`<div>
+						<p> comp组件</p>
+						<h2 ref="h2">{{msg}}</h2>
+						<button @click="change">改变</button>
+						<button @click="destroyComp">卸载</button>
+					</div>`,
+					data(){
+						return {
+							msg:"数据",
+							count:1
+						}
+					},
+					methods:{
+						change(){
+							this.msg = "变了"
+						},
+						destroyComp(){
+							this.$destroy()
+						}
+					},
+					//创建前
+					beforeCreate() {
+						console.log("创建前")
+						console.log(this);
+						console.log(this.$data);
+						console.log(this.$el);
+						/**
+						 * 仅进行组件实例化
+						 * 获取不到绑定元素
+						 * 获取不到data数据
+						 */
+						console.log("-------------------------")
+					},
+					//创建后
+					created() {
+						console.log("创建后")
+						console.log(this);
+						console.log(this.$data);
+						console.log(this.$el);
+						/**
+						 * 实例化组件完毕，将组件中的配置挂在至实例对象
+						 * 可以获取data数据
+						 * 但无法获取绑定元素
+						 * 
+						 * 通常发起异步请求
+						 */
+						console.log("-------------------------")
+					},
+					//挂载前
+					beforeMount() {
+						console.log("挂载前")
+						console.log(this);
+						console.log(this.$data);
+						console.log(this.$el);
+						/**
+						 * 虚拟dom建立，尚未映射为真是dom
+						 * 无法获取绑定元素
+						 */
+						console.log("-------------------------")
+					},
+					//挂载后
+					mounted() {
+						console.log("挂载后")
+						console.log(this);
+						console.log(this.$data);
+						console.log(this.$el);
+						/**
+						 * 页面初始化渲染完毕
+						 * 可以获取this.$refs
+						 * 进行相关dom操作
+						 */
+					},
+					//更新前
+					beforeUpdate() {
+						//触发更新前钩子
+						/**
+						 * 1、data中的数据发生改变
+						 * 2、被改变的数据绑定在模板上
+						 */
+						//更新前仅更新了数据，dom尚未更新
+						console.log("更新前")
+						console.log(this.$data.msg);
+						console.log(this.$refs.h2.innerHTML)
+					},
+					//更新后
+					updated() {
+						//更新后dom会渲染新数据
+						console.log("更新后")
+						console.log(this.$data.msg);
+						console.log(this.$refs.h2.innerHTML)
+					},
+					//卸载前
+					beforeDestroy() {
+						console.log("卸载前")
+					},
+					//卸载后
+					destroyed() {
+						console.log("卸载后")
+						//清除组件中使用的定时器
+						//清除所有的原生事件
+					}
+					
+				}
+			}
+		})
+	</script>
+</html>

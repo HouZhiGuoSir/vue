@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<router-view></router-view>
+		</div>
+		<template id="tp1">
+			<div>
+				<input type="text">
+				<input type="text">
+				<button @click="loginFn">登录</button>
+			</div>
+		</template>
+		<template id="tp2">
+			<div>
+				首页
+				<router-link to="/car" @click="fn">购物车</router-link>
+			</div>
+		</template>
+		<template id="tp3">
+			<div>购物车</div>
+		</template>
+		<template id="tp4">
+			<div>demo</div>
+		</template>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="vue-router.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let router = new VueRouter({
+			routes:[{
+				path:"/",
+				component:{
+					template:"#tp2",
+					methods:{
+						fn(){
+							alert(1)
+						}
+					}
+				}
+			},{
+				path:"/car",
+				meta:{
+					isLogin:true
+				},
+				component:{
+					template:"#tp3"
+				}
+			},{
+				path:"/demo",
+				name:"demo",
+				component:{
+					template:"#tp4"
+				}
+			},{
+				path:"/login",
+				component:{
+					template:"#tp1",
+					methods:{
+						loginFn(){
+							setTimeout(()=>{
+								sessionStorage.tokenID = "xasdqwodjowqjd11";
+								// location.href="/login"
+								// this.$router.push("/")
+								// this.$router.replace("/demo/123")
+								this.$router.replace({
+									name:"demo",
+									query:{name:"lee",age:18},
+									params:{work:"xxx"}
+								})
+								/**
+								 * replace将当前路由在路由栈中替换为目标路由 回退路由时不再经过当前路由
+								 * push在路由栈中推入目标路由，回退时还会经过当前路由
+								 */
+							},500)
+						}
+					}
+				}
+			}]
+		})
+		router.beforeEach((to,from,next)=>{
+			console.log(to.meta)
+			if(to.meta.isLogin){
+				if(sessionStorage.tokenID){
+					next()
+				}else{
+					console.log("run")
+					next("/login")
+				}
+			}else{
+				next()
+			}
+		})
+		let vm = new Vue({
+			el:"#app",
+			router
+		})
+	</script>
+</html>

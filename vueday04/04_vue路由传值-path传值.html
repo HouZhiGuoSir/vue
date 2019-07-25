@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<router-link :to="'/news/'+obj">news</router-link>
+			<router-link to="/news/456789">news</router-link>
+			<router-view></router-view>
+		</div>
+		<template id="tp1">
+			
+			<div>
+				news路由
+				<p>id:{{$route.params.id}}</p>
+			</div>
+		</template>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="vue-router.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		let router= new VueRouter({
+			routes:[{
+				path:"/news/:id",
+				component:{
+					template:"#tp1",
+					created(){
+						//取值
+						console.log(this.$route.params.id);	
+					},
+					watch:{
+						"$route"(nval,oval){
+							console.log(nval.params.id);
+							
+						}
+					}
+				}
+			}]
+		})
+		let vm = new Vue({
+			el:"#app",
+			data:{
+				obj:{
+					name:"lee"
+				}
+			},
+			router
+		})
+		/**
+		 * 路径传值
+		 * 1、书写方便
+		 * 2、刷新页面数据不会丢失
+		 * 3、传输量较小
+		 * 4、常用于传递基本数据类型（string，number）
+		 * 5、列表页进入详情页的传值
+		 */
+	</script>
+</html>

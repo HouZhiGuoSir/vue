@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 路由入口 -->
+			<router-link to="/">路由1</router-link>
+			<router-link to="/page">路由2</router-link>
+			<!-- 渲染区 -->
+			<router-view></router-view>
+		</div>
+		<template id="tp1">
+			<div>我是路由1</div>
+		</template>
+		<template id="tp2">
+			<div>
+				<p>我是路由2</p>
+				<router-link to="/page/one">2-1</router-link>
+				<router-link to="/page/two">2-2</router-link>
+				<router-view></router-view>
+			</div>
+		</template>
+		<template id="tp3">
+			<div>我是路由2-1</div>
+		</template>
+		<template id="tp4">
+			<div>我是路由2-2</div>
+		</template>
+	</body>
+	<script src="vue.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="vue-router.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		//实例化路由对象
+		let router = new VueRouter({
+			routes:[{
+				path:"/",//路由地址
+				component:{
+					template:"#tp1"
+				}
+			},{
+				path:"/page",
+				component:{
+					template:"#tp2"
+				},
+				//路由重定向
+				redirect:"/page/one",
+				//二级路由
+				children:[{
+					path:"/page/one",
+					component:{
+						template:"#tp3"
+					}
+				},{
+					path:"/page/two",
+					component:{
+						template:"#tp4"
+					}
+				}]
+			}]
+		})
+		//将实例化的路由对象挂载至vue实例
+		let vm = new Vue({
+			el:"#app",
+			router
+		})
+	</script>
+</html>
